@@ -1,0 +1,1 @@
+(()=>{"use strict";var e={};e.d=(o,t)=>{for(var n in t)e.o(t,n)&&!e.o(o,n)&&Object.defineProperty(o,n,{enumerable:!0,get:t[n]})},e.o=(e,o)=>Object.prototype.hasOwnProperty.call(e,o);var o={};e.d(o,{default:()=>t});let t=(0,window.HaloConsoleShared.definePlugin)({components:{},routes:[],extensionPoints:{}});window.jyfac=o.default})();

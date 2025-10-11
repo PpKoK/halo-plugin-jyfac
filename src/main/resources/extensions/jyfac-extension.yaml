@@ -1,0 +1,9 @@
+apiVersion: plugin.halo.run/v1alpha1
+kind: ExtensionDefinition
+metadata:
+  name: jyfac-head-processor
+spec:
+  extensionPointName: template-head-processor
+  className: www.ppkok.com.jyfac.JyfacHeadProcessor
+  displayName: "Jyfac插件头部处理器"
+  description: "向HTML头部注入Jyfac插件的CSS和JavaScript资源"
