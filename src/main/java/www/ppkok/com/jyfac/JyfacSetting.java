@@ -21,6 +21,7 @@ public record JyfacSetting(
         Integer scrollInterval,
         
         // 样式设置
+        String themeMode,
         String backgroundColor,
         String textColor,
         Integer borderRadius,
@@ -49,6 +50,7 @@ public record JyfacSetting(
                 3000,
                 
                 // 样式设置默认值
+                "auto",
                 "#007bff",
                 "#ffffff",
                 20,

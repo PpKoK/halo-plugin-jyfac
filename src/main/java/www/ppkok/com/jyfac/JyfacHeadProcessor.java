@@ -62,6 +62,12 @@ public class JyfacHeadProcessor implements TemplateHeadProcessor {
             .then();
     }
     
+    /**
+     * 生成CSS样式内容
+     * 根据主题模式生成对应的CSS样式
+     * @param setting 插件设置
+     * @return CSS样式字符串
+     */
     private String generateCssContent(JyfacSetting setting) {
         String positionCss = switch (setting.position()) {
             case "bottom-left" -> "bottom: 20px; left: 20px;";
@@ -69,6 +75,74 @@ public class JyfacHeadProcessor implements TemplateHeadProcessor {
             case "top-center" -> "top: 20px; left: 50%; transform: translateX(-50%);";
             default -> "bottom: 20px; left: 50%; transform: translateX(-50%);";
         };
+        
+        // 根据主题模式获取颜色配置
+        String backgroundColor = setting.backgroundColor();
+        String textColor = setting.textColor();
+        String closeBtnBg = "#f1f3f5";
+        String closeBtnHoverBg = "#e9ecef";
+        String closeBtnIconColor = "#495057";
+        
+        // 主题模式样式
+        String themeStyles = "";
+        switch (setting.themeMode()) {
+            case "light" -> {
+                backgroundColor = "rgba(255, 255, 255, 0.95)";
+                textColor = "#333333";
+                closeBtnBg = "#f1f3f5";
+                closeBtnHoverBg = "#e9ecef";
+                closeBtnIconColor = "#495057";
+            }
+            case "dark" -> {
+                backgroundColor = "rgba(33, 37, 41, 0.95)";
+                textColor = "#ffffff";
+                closeBtnBg = "#495057";
+                closeBtnHoverBg = "#6c757d";
+                closeBtnIconColor = "#ffffff";
+            }
+            case "auto" -> {
+                themeStyles = """
+                    @media (prefers-color-scheme: light) {
+                        .capsule-bar {
+                            background: rgba(255, 255, 255, 0.95) !important;
+                        }
+                        .capsule-text {
+                            color: #333333 !important;
+                        }
+                        .close-btn {
+                            background: #f1f3f5 !important;
+                        }
+                        .close-btn:hover {
+                            background: #e9ecef !important;
+                        }
+                        .close-btn::before,
+                        .close-btn::after {
+                            background: #495057 !important;
+                        }
+                    }
+                    
+                    @media (prefers-color-scheme: dark) {
+                        .capsule-bar {
+                            background: rgba(33, 37, 41, 0.95) !important;
+                        }
+                        .capsule-text {
+                            color: #ffffff !important;
+                        }
+                        .close-btn {
+                            background: #495057 !important;
+                        }
+                        .close-btn:hover {
+                            background: #6c757d !important;
+                        }
+                        .close-btn::before,
+                        .close-btn::after {
+                            background: #ffffff !important;
+                        }
+                    }
+                    """;
+                // 自动模式下使用用户设置的颜色作为默认值
+            }
+        }
         
         return String.format("""
             .capsule-container {
@@ -201,7 +275,7 @@ public class JyfacHeadProcessor implements TemplateHeadProcessor {
                 width: 24px;
                 height: 24px;
                 border-radius: 50%%;
-                background: #f1f3f5;
+                background: %s;
                 border: none;
                 cursor: pointer;
                 display: flex;
@@ -212,7 +286,7 @@ public class JyfacHeadProcessor implements TemplateHeadProcessor {
             }
             
             .close-btn:hover {
-                background: #e9ecef;
+                background: %s;
                 transform: rotate(90deg);
             }
             
@@ -226,7 +300,7 @@ public class JyfacHeadProcessor implements TemplateHeadProcessor {
                 position: absolute;
                 width: 12px;
                 height: 2px;
-                background: #495057;
+                background: %s;
                 border-radius: 1px;
             }
             
@@ -237,12 +311,18 @@ public class JyfacHeadProcessor implements TemplateHeadProcessor {
             .close-btn::after {
                 transform: rotate(-45deg);
             }
+            
+            %s
             """, 
             positionCss, 
             setting.zIndex(), 
-            setting.backgroundColor(), 
+            backgroundColor, 
             setting.borderRadius(), 
-            setting.textColor()
+            textColor,
+            closeBtnBg,
+            closeBtnHoverBg,
+            closeBtnIconColor,
+            themeStyles
         );
     }
     

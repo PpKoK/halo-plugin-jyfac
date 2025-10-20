@@ -51,6 +51,7 @@ public class JyfacService {
                     content.multiLineTexts(),
                     basic.autoScroll(),
                     contentStyle.scrollInterval(),
+                    contentStyle.themeMode(),
                     contentStyle.backgroundColor(),
                     contentStyle.textColor(),
                     contentStyle.borderRadius(),

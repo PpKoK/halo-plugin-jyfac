@@ -66,6 +66,18 @@ spec:
     - group: content-style
       label: 内容样式
       formSchema:
+        - $formkit: select
+          name: themeMode
+          label: "主题模式"
+          value: "auto"
+          options:
+            - label: "自动模式"
+              value: "auto"
+            - label: "亮光模式"
+              value: "light"
+            - label: "暗夜模式"
+              value: "dark"
+          help: "选择胶囊公告的主题模式，自动模式会根据系统主题自动切换"
         - $formkit: number
           name: autoHideDelay
           label: "自动延迟关闭(秒)"
