@@ -16,3 +16,4 @@ jobs:
       node-version: 22
       java-version: 21
       app-id: app-7v0y81qq
+      cache-dependency-path: ui/pnpm-lock.yaml
