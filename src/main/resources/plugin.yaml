@@ -10,7 +10,7 @@ spec:
   requires: ">=2.21.0"
   author:
     name: Jyf
-    website: https://github.com/Jyf
+    website: https://github.com/ppkok
   logo: logo.png
   homepage: hhttps://github.com/PpKoK/halo-plugin-jyfac#readme
   repo: https://github.com/PpKoK/halo-plugin-jyfac
